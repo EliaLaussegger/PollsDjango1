@@ -19,11 +19,11 @@ from profiles.models import Profile
 
 
 class ImpressumView(TemplateView):
-    template_name = "polls\impressum.html"
+    template_name = "polls/impressum.html"
 
 
 class PopularView(generic.ListView):
-    template_name = "polls\popular.html"
+    template_name = "polls/popular.html"
     context_object_name = "top_questions"
 
     def get_queryset(self):
