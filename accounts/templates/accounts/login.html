@@ -1,0 +1,25 @@
+{% load static %}
+{% load socialaccount %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+</head>
+
+
+<form method="post" action="{% url 'accounts:new_login' %}">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="username">Benutzername:</label>
+        <input type="text" name="username" id="username" required>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Passwort:</label>
+        <input type="password" name="password" id="password" required>
+    </div>
+    <button type="submit">Login</button>
+    <p>Oder logge dich ein mit:</p>
+    <a href="{% provider_login_url 'google' %}">
+    <button type="button">Mit Google anmelden</button>
+</form>

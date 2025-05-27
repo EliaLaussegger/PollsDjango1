@@ -1,0 +1,41 @@
+<!-- <h1>Neue Frage hinzufügen</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <label for="question_text">Frage:</label>
+    <input type="text" name="question_text" id="question_text" required>
+    <br><br>
+    <div id="form-container">
+        <label for="question_text">Choice:</label>
+        <br><input type="text" name="choice_text" id="choice_text" required><br>
+        <label for="question_text">Choice:</label>
+        <br><input type="text" name="choice_text" id="choice_text" required><br>
+    </div>
+    <button type="submit">Speichern</button>
+    <button id = "choice_button" type="Add Choice">Choice</button>
+
+</form>
+
+<a href="{% url 'polls:index' %}">Zurück zur Übersicht</a> -->
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+</head>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    {{ formset.management_form }}
+
+    {% for choice_form in formset %}
+        {{ choice_form.as_p }}
+    {% endfor %}
+
+    <button type="submit">Frage hinzufügen</button>
+</form>
+
+<a href="{% url 'polls:index' %}">Zurück zur Übersicht</a>
+<p></p>
+<a href="{% url 'polls:impressum' %}">Impressum</a>
