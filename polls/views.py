@@ -193,4 +193,5 @@ def like_question(request, question_id):
 
 def logout_view(request):
     logout(request)
-    return redirect('accounts:index') 
+    request.session["email_sent"] = False 
+    return redirect('accounts:index')

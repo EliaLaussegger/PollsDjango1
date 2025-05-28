@@ -14,6 +14,10 @@ from profiles.models import Profile
 from django.utils.crypto import get_random_string
 import uuid
 from django.contrib import messages
+import time
+
+
+
 
 
 def register(request):
@@ -24,8 +28,9 @@ def register(request):
         
         if username and password:
             if User.objects.filter(username=username).exists():
-                return render(request, "accounts/register.html")
                 messages.error(request, "Benutzername existiert bereits.")
+                return render(request, "accounts/register.html")
+
 
             user = User.objects.create_user(username=username, password=password, email=email)
             Profile.objects.create(user=user)
@@ -44,9 +49,10 @@ def verification(request):
         code = request.POST.get("code")
         if code == saved_code:
             profile.is_verified = True
+            profile.save()
             return redirect('polls:index')
         else:
-            return render(request, 'accounts/ver.html', {
+            return render(request, 'accounts/verification.html', {
                 'error': 'Code ist ungültig.'
             })
     return render(request, 'accounts/verification.html')
@@ -67,10 +73,17 @@ class VerificationView(TemplateView):
     template_name = "accounts/verification.html"
 
     def get(self, request, *args, **kwargs):
-        self.sendEmail(request)
+        last_sent = request.session.get("last_email_sent", 0)
+        now = time.time()
+    
+        if now - last_sent > 60:  # z. B. 60 Sekunden Sperre
+            self.sendEmail(request)
+            request.session["last_email_sent"] = now
+    
         return super().get(request, *args, **kwargs)
     def sendEmail(self, request):
             user = request.user
+            print("E-Mail wird verschickt an:", user.email)
             try:
                 profile = user.profile
                 token = uuid.uuid4()
@@ -92,9 +105,8 @@ class VerificationView(TemplateView):
                 )
                 email.content_subtype = 'html'
                 email.send()
-            except User.DoesNotExist:
+            except Profile.DoesNotExist:
                 return HttpResponse("Kein Benutzer mit dieser E-Mail gefunden.")
-            return render(request, "accounts/verification.html")
     # def sendEmail(self, request):
     #     user = request.user
         
@@ -117,6 +129,7 @@ def login_with_token(request, token,  backend='django.contrib.auth.backends.Mode
         profile = Profile.objects.get(login_token=token)
         user = profile.user
         profile.login_token = None
+        profile.is_verified = True
         profile.save()
         auth_login(request, user, backend=backend)
         return redirect("polls:index")
