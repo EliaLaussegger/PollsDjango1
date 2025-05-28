@@ -16,6 +16,6 @@ urlpatterns = [
     path('comment/<int:comment_id>/like/', views.like, name='like'),
     path('impressum/', views.ImpressumView.as_view(), name='impressum'),
     path("<int:question_id>/like_question/", views.like_question, name="like_question"),
-    path("logout/", views.logout, name="logout"),
+    path("logout/", views.logout_view, name="logout"),
 
 ]
