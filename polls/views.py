@@ -55,7 +55,7 @@ class EveryFeedView(generic.ListView):
 def check_loggedin(request):
     user = request.user
 
-    if not user.is_authenticated:
+    if not user.is_authenticated or not profile.is_verified:
         return redirect('accounts:login')
     try:
         profile = user.profile
@@ -156,6 +156,7 @@ def add_comment(request, question_id):
     })
 
 def like(request, comment_id):
+    check_loggedin(request)
     comment = get_object_or_404(Comment, pk=comment_id)
     existing_like = Like.objects.filter(author=request.user, comment=comment).first()
     if existing_like:
@@ -167,6 +168,7 @@ def like(request, comment_id):
     return redirect('polls:detail', pk=comment.question.id)
 
 def like_question(request, question_id):
+    check_loggedin(request)
     question = get_object_or_404(Question, pk=question_id)
     existing_like = Like.objects.filter(author=request.user, question=question).first()
     if existing_like:
