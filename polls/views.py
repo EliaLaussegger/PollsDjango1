@@ -15,7 +15,7 @@ from django.forms import inlineformset_factory
 from django.views.generic import TemplateView
 from django.contrib import messages
 from profiles.models import Profile
-
+from functools import wraps
 
 
 class ImpressumView(TemplateView):
@@ -52,21 +52,25 @@ class EveryFeedView(generic.ListView):
     def get_queryset(self):
         return Question.objects.order_by("-pub_date")
 
-def check_loggedin(request):
-    user = request.user
-    
-    if not user.is_authenticated:
-        return redirect('accounts:login')
-    
-    try:
-        profile = user.profile
-    except Profile.DoesNotExist:
-        return redirect('accounts:verification')
-    
-    if not profile.is_verified:
-        return redirect('accounts:verification')
-    
-    return None
+def check_loggedin(view_func):
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
+        user = request.user
+
+        if not user.is_authenticated:
+            return redirect('accounts:login')
+
+        try:
+            profile = user.profile
+        except Profile.DoesNotExist:
+            return redirect('accounts:verification')
+
+        if not profile.is_verified:
+            return redirect('accounts:verification')
+
+        return view_func(request, *args, **kwargs)
+
+    return _wrapped_view
 
 class DetailView(generic.DetailView):
     model = Question
@@ -85,11 +89,10 @@ class ResultsView(generic.DetailView):
 
 
 
-
+@check_loggedin
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
 
-    check_loggedin(request)
     try:
         selected_choice = question.choice_set.get(pk=request.POST["choice"])
     except (KeyError, Choice.DoesNotExist):
@@ -112,8 +115,8 @@ def vote(request, question_id):
 
     return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
 ChoiceFormSet = inlineformset_factory(Question, Choice, fields=['choice_text'], extra=3)
+@check_loggedin
 def add_question(request):
-    check_loggedin(request)
     if request.method == 'POST':
         form = QuestionForm(request.POST)
         if form.is_valid():
@@ -132,8 +135,9 @@ def add_question(request):
         form = QuestionForm()
         formset = ChoiceFormSet()
     return render(request, 'polls/add_question.html', {'form': form, 'formset': formset})
+
+@check_loggedin
 def add_comment(request, question_id):
-    check_loggedin(request)
     question = get_object_or_404(Question, pk=question_id)
 
     if request.method == 'POST':
@@ -155,8 +159,10 @@ def add_comment(request, question_id):
         'form': form,
     })
 
+
+
+@check_loggedin
 def like(request, comment_id):
-    check_loggedin(request)
     comment = get_object_or_404(Comment, pk=comment_id)
     existing_like = Like.objects.filter(author=request.user, comment=comment).first()
     if existing_like:
