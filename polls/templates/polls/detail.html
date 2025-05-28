@@ -39,7 +39,7 @@
           <form method="post" action="{% url 'polls:like' comment.id %}">
             {% csrf_token %}
             <label for="like-{{ comment.id }}">{{ comment.likes }}</label>
-            <button type="submit" id="like-{{ comment.id }}">❤️</button>
+            <button type="submit" id="like-{{ comment.id }}" class="likeButton">❤️</button>
           </form>
         </div>
       </li>
@@ -59,6 +59,6 @@
   <p><a href="{% url 'polls:logout' %}" class="logout">Logout</a></p>
     
   <p><a href="{% url 'polls:impressum' %}">Impressum</a></p>
-
-</body>
+  <p class = "user_profile">Logged in User {{ user.username }}</p>
+</body> 
 </html>

@@ -58,7 +58,7 @@ def check_loggedin(view_func):
         user = request.user
 
         if not user.is_authenticated:
-            return redirect('accounts:login')
+            return redirect('accounts:index')
 
         try:
             profile = user.profile
@@ -173,8 +173,10 @@ def like(request, comment_id):
         comment.save()
     return redirect('polls:detail', pk=comment.question.id)
 
+
+
+@check_loggedin
 def like_question(request, question_id):
-    check_loggedin(request)
     question = get_object_or_404(Question, pk=question_id)
     existing_like = Like.objects.filter(author=request.user, question=question).first()
     if existing_like:
@@ -191,4 +193,4 @@ def like_question(request, question_id):
 
 def logout_view(request):
     logout(request)
-    return redirect('accounts:login') 
+    return redirect('accounts:index') 

@@ -24,11 +24,11 @@ def register(request):
         
         if username and password:
             if User.objects.filter(username=username).exists():
-                messages.error(request, "Benutzername existiert bereits.")
                 return render(request, "accounts/register.html")
+                messages.error(request, "Benutzername existiert bereits.")
 
             user = User.objects.create_user(username=username, password=password, email=email)
-            Profile.objects.create(user=user)  # Profil direkt mit anlegen
+            Profile.objects.create(user=user)
             user.save()
             user = authenticate(request, username=username, password=password)
             if user is not None:
