@@ -1,21 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
 {% load static %}
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+  <title>Willkommen bei den Umfragen</title>
 </head>
-<p>In dieser Website kann man neue Fragen/Umfragen erstellen und abstimmen. Man kann Kommentare schreiben und liken. Die Kommentare werden nach likes sotiert. Man kann sich die letzten 5 anzeigen lassen oder alle anschauen.</p>
-<div class="box">
-  <a href="{% url 'polls:latest_feed' %}">Latest Polls</a>
-</div>
-<div class="box">
-  <a href="{% url 'polls:every_feed' %}">All Polls</a>
-</div>
-<div class="box">
-  <a href="{% url 'polls:popular_feed' %}">Popular Polls</a>
-</div>
-<div class="box">
-  <a href="{% url 'polls:add_question' %}">Neue Frage hinzufügen</a>
-</div>
+<body>
 
-<a href="{% url 'polls:impressum' %}">Impressum</a>
+  <p>
+    In dieser Website kann man neue Fragen/Umfragen erstellen und abstimmen.
+    Man kann Kommentare schreiben und liken.
+    Die Kommentare werden nach Likes sortiert.
+    Man kann sich die letzten 5 anzeigen lassen oder alle anschauen.
+  </p>
+
+  <div class="box">
+    <a href="{% url 'polls:latest_feed' %}">Latest Polls</a>
+  </div>
+  <div class="box">
+    <a href="{% url 'polls:every_feed' %}">All Polls</a>
+  </div>
+  <div class="box">
+    <a href="{% url 'polls:popular_feed' %}">Popular Polls</a>
+  </div>
+  <div class="box">
+    <a href="{% url 'polls:add_question' %}">Neue Frage hinzufügen</a>
+  </div>
+
+  <p><a href="{% url 'polls:impressum' %}">Impressum</a></p>
+
+</body>
+</html>

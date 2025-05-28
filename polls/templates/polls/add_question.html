@@ -17,25 +17,31 @@
 </form>
 
 <a href="{% url 'polls:index' %}">Zurück zur Übersicht</a> -->
+<!DOCTYPE html>
+<html lang="de">
 {% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+    <title>Frage hinzufügen</title>
 </head>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+<body>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
 
-    {{ formset.management_form }}
+        {{ formset.management_form }}
 
-    {% for choice_form in formset %}
-        {{ choice_form.as_p }}
-    {% endfor %}
+        {% for choice_form in formset %}
+            {{ choice_form.as_p }}
+        {% endfor %}
 
-    <button type="submit">Frage hinzufügen</button>
-</form>
+        <button type="submit">Frage hinzufügen</button>
+    </form>
 
-<a href="{% url 'polls:index' %}">Zurück zur Übersicht</a>
-<p></p>
-<a href="{% url 'polls:impressum' %}">Impressum</a>
+    <a href="{% url 'polls:index' %}">Zurück zur Übersicht</a>
+    <p></p>
+    <a href="{% url 'polls:impressum' %}">Impressum</a>
+</body>
+</html>

@@ -1,11 +1,16 @@
+<!DOCTYPE html>
+<html lang="de">
 {% load static %}
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'accounts/style.css' %}" />
+  <title>Login / Registrierung</title>
 </head>
-<a href="{% url 'accounts:login' %}"><button>Login</button></a>
-<a href="{% url 'accounts:register' %}"><button>Registrieren</button></a>
+<body>
 
+  <a href="{% url 'accounts:login' %}" class="btn">Login</a>
+  <a href="{% url 'accounts:register' %}" class="btn">Registrieren</a>
 
-
+</body>
+</html>

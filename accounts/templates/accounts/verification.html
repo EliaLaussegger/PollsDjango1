@@ -1,14 +1,24 @@
+<!DOCTYPE html>
+<html lang="de">
 {% load static %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+  <title>Verifizierung</title>
 </head>
-<p>Ihnen wurde ein link mit einem verifizierungs code geschickt</p>
-<form method="post" action="{% url 'accounts:verification_action' %}">
+<body>
+
+  <p>Ihnen wurde ein Link mit einem Verifizierungscode geschickt</p>
+  
+  <form method="post" action="{% url 'accounts:verification_action' %}">
     {% csrf_token %}
     <div class="form-group">
-        <label for="username">Code:</label>
-        <input type="text" name="code" id="code" required>
+      <label for="code">Code:</label>
+      <input type="text" name="code" id="code" required>
     </div>
-</form>
+    <button type="submit">Verifizieren</button>
+  </form>
+
+</body>
+</html>

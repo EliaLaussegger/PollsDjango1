@@ -1,55 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
 {% load static %}
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+  <title>{{ question.question_text }} – Abstimmung</title>
 </head>
-{% if error_message %}
-  <p style="color:red;">{{ error_message }}</p>
-{% endif %}
+<body>
 
+  {% if error_message %}
+    <p style="color:red;"><strong>{{ error_message }}</strong></p>
+  {% endif %}
 
-<form action="{% url 'polls:vote' question.id %}" method="post">
-{% csrf_token %}
-<fieldset>
-    <legend><h1>{{ question.question_text }}</h1></legend>
-    <p>Datum: {{ question.pub_date}}</p>
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-    {% for choice in question.choice_set.all %}
+  <form action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+      <legend><h1>{{ question.question_text }}</h1></legend>
+      <p>Datum: {{ question.pub_date }}</p>
+
+      {% for choice in question.choice_set.all %}
         <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
         <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-    {% endfor %}
-</fieldset>
-<input type="submit" value="Vote">
-<a href="{% url 'polls:results' question.id %}">Ergebniss von {{ question.question_text }}</a>
-</form>
-<h2>Kommentare</h2>
-<ul>
+      {% endfor %}
+    </fieldset>
+    <input type="submit" value="Vote">
+    <a href="{% url 'polls:results' question.id %}">Ergebnis von {{ question.question_text }}</a>
+  </form>
 
+  <h2>Kommentare</h2>
+  <ul>
     {% for comment in comments_sorted %}
+      <li>
         <div class="box">
-            <li id = "comment">{{ comment.comment_text }}</li>
-            <li id = "date">Datum: {{ comment.pub_date}}</li>
-            <li id = "author">User: {{ comment.author}}</li>
-            <form method="post" action="{% url 'polls:like' comment.id%}">
-              {% csrf_token %}
-              <label for="id_comment_text">{{ comment.likes}}</label>
-              <button type="submit">❤️</button>
-            </form>
+          <p id="comment">{{ comment.comment_text }}</p>
+          <p id="date">Datum: {{ comment.pub_date }}</p>
+          <p id="author">User: {{ comment.author }}</p>
+          <form method="post" action="{% url 'polls:like' comment.id %}">
+            {% csrf_token %}
+            <label for="like-{{ comment.id }}">{{ comment.likes }}</label>
+            <button type="submit" id="like-{{ comment.id }}">❤️</button>
+          </form>
         </div>
+      </li>
     {% empty %}
-        <p>Noch keine Kommentare.</p>
+      <p>Noch keine Kommentare.</p>
     {% endfor %}
+  </ul>
 
-</ul>
+  <form method="post" action="{% url 'polls:add_comment' question.id %}">
+    {% csrf_token %}
+    <label for="id_comment_text">Kommentar:</label>
+    <input type="text" name="comment_text" id="id_comment_text" required>
+    <button type="submit">Kommentar hinzufügen</button>
+  </form>
 
-<form method="post" action="{% url 'polls:add_comment' question.id %}">
-  {% csrf_token %}
-  <label for="id_comment_text">Kommentar:</label>
-  <input type="text" name="comment_text" id="id_comment_text" required>
-  <button type="submit">Kommentar hinzufügen</button>
-</form>
-<a href="{% url 'polls:index' %}">Zurück zur Übersicht</a>
-<p></p>
-<a href="{% url 'polls:impressum' %}">Impressum</a>
+  <p><a href="{% url 'polls:index' %}">Zurück zur Übersicht</a></p>
+  <p><a href="{% url 'polls:impressum' %}">Impressum</a></p>
 
+</body>
+</html>
