@@ -19,5 +19,34 @@ ul {
     .box {
       font-size: 16px;
     }
+    button {
+    width: 100%;
+    font-size: 18px; 
+    padding: 12px 0;
+    margin-bottom: 10px; 
+  }
+
+  a {
+    display: block;   
+  }
+}
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  background-color: hwb(0 41% 59%);
+  color: white;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #a4a7aa;
+}
+
+
+.form-group {
+  margin-bottom: 15px;
 }
 

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.shortcuts import get_object_or_404
-
+from django.contrib.auth import logout
 from django.db.models import F
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -54,19 +54,19 @@ class EveryFeedView(generic.ListView):
 
 def check_loggedin(request):
     user = request.user
-
-    if not user.is_authenticated or not profile.is_verified:
+    
+    if not user.is_authenticated:
         return redirect('accounts:login')
+    
     try:
         profile = user.profile
     except Profile.DoesNotExist:
-        return redirect('accounts:verification') 
-
+        return redirect('accounts:verification')
+    
     if not profile.is_verified:
         return redirect('accounts:verification')
-
-    return None 
     
+    return None
 
 class DetailView(generic.DetailView):
     model = Question
@@ -181,3 +181,8 @@ def like_question(request, question_id):
     if referer:
         return HttpResponseRedirect(referer)
     return redirect('polls:detail', pk=question.id)
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('accounts:login') 
