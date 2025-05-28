@@ -13,6 +13,7 @@ import random
 from profiles.models import Profile
 from django.utils.crypto import get_random_string
 import uuid
+from django.contrib import messages
 
 
 def register(request):
@@ -20,7 +21,12 @@ def register(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         email = request.POST.get('email')
+        
         if username and password:
+            if User.objects.filter(username=username).exists():
+                messages.error(request, "Benutzername existiert bereits.")
+                return render(request, "accounts/register.html")
+
             user = User.objects.create_user(username=username, password=password, email=email)
             Profile.objects.create(user=user)  # Profil direkt mit anlegen
             user.save()
