@@ -19,7 +19,7 @@ ul {
   flex-direction: column;
   align-items: flex-start; 
   line-height: .8;
-  background: rgb(68, 68, 68);
+  background: rgb(105, 105, 105);
 }
 
 
@@ -62,7 +62,7 @@ ul {
 }
 body {
   padding-top:  30px;
-  background-color: #1d1d1d;
+  background-color: #2c2c2c;
 
 }
 
@@ -147,4 +147,7 @@ p{
 
 .text{
   color: rgb(199, 199, 199);
+}
+.h1{
+  color: rgb(255, 255, 255);
 }

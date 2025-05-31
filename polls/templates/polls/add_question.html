@@ -20,12 +20,18 @@
 <!DOCTYPE html>
 <html lang="de">
 {% load static %}
-<head>
+<header class="container-fluid border mb-5" style="background-color: rgb(236, 86, 86); padding: 2%;">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'polls/style.css' %}">
     <title>Frage hinzufügen</title>
-</head>
+</header>
+<!-- <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+    <title>Frage hinzufügen</title>
+</head> -->
 <body>
     <form method="post">
         {% csrf_token %}
