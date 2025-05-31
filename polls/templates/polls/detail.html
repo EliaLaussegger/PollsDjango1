@@ -15,17 +15,21 @@
 
   <form action="{% url 'polls:vote' question.id %}" method="post">
     {% csrf_token %}
-    <fieldset>
-      <legend><h1>{{ question.question_text }}</h1></legend>
-      <p>Datum: {{ question.pub_date }}</p>
+    <div class="questions-container">
+      <fieldset>
 
-      {% for choice in question.choice_set.all %}
-        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-      {% endfor %}
-    </fieldset>
-    <input type="submit" value="Vote">
-    <a href="{% url 'polls:results' question.id %}">Ergebnis von {{ question.question_text }}</a>
+        <legend><h1>{{ question.question_text }}</h1></legend>
+        <p>Datum: {{ question.pub_date }}</p>
+
+        {% for choice in question.choice_set.all %}
+          <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+          <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+        {% endfor %}
+      </fieldset>
+      <input type="submit" value="Vote">
+      <a href="{% url 'polls:results' question.id %}">Ergebnis von {{ question.question_text }}</a>
+    </div>
+
   </form>
 
   <h2>Kommentare</h2>
@@ -34,8 +38,8 @@
       <li>
         <div class="box">
           <p id="comment">{{ comment.comment_text }}</p>
-          <p id="date">Datum: {{ comment.pub_date }}</p>
-          <p id="author">User: {{ comment.author }}</p>
+          <p id="date"class="text">Datum: {{ comment.pub_date }}</p>
+          <p id="author"class="text">User: {{ comment.author }}</p>
           <form method="post" action="{% url 'polls:like' comment.id %}">
             {% csrf_token %}
             <label for="like-{{ comment.id }}">{{ comment.likes }}</label>
@@ -48,16 +52,23 @@
     {% endfor %}
   </ul>
 
+
+  <div class="button-container">
   <form method="post" action="{% url 'polls:add_comment' question.id %}">
     {% csrf_token %}
-    <label for="id_comment_text">Kommentar:</label>
+    <label for="id_comment_text" class="text">Kommentar:</label>
     <input type="text" name="comment_text" id="id_comment_text" required>
     <button type="submit">Kommentar hinzufügen</button>
   </form>
-  <a href="{% url 'polls:index' %}"><button>Zurück zur Übersicht</button></a>
-  <p><a href="{% url 'polls:logout' %}" class="logout">Logout</a></p>
+    <a href="{% url 'polls:index' %}" class="button-link">Zurück zur Übersicht</a>
+    <p><a href="{% url 'polls:logout' %}" class="text">Logout</a></p>
     
-  <p><a href="{% url 'polls:impressum' %}">Impressum</a></p>
+    <p><a href="{% url 'polls:impressum' %}">Impressum</a></p>
+
+  </div>
+  
+ 
+ 
   <span class="topbar-user">👤 {{ user.username }}</span></body>
 </body> 
 </html>

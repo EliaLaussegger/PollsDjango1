@@ -71,6 +71,7 @@ body {
     .box {
       font-size: 16px;
     }
+    .button-link,
     button {
     width: 100%;
     font-size: 18px; 
@@ -87,6 +88,24 @@ body {
     padding: 4px 8px;
   }
 }
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;    
+  gap: 10px;             
+}
+.questions-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  box-sizing: border-box;
+}
+.button-link,
 button {
   padding: 10px 20px;
   font-size: 16px;
@@ -102,6 +121,7 @@ button {
   border: none;                  
   color: inherit;  
 }
+.button-link:hover,
 button:hover {
   background-color: #3a3a3b;
 
@@ -114,7 +134,7 @@ a{
     text-decoration: none; 
 }
 a:active {
-  /* Beim Klicken */
+
   color:white;
   text-decoration: none;
 }
@@ -125,3 +145,6 @@ p{
   color:white;
 }
 
+.text{
+  color: rgb(199, 199, 199);
+}
