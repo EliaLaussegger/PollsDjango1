@@ -8,6 +8,7 @@ ul {
     font-size: small;
   }
 .box {
+  cursor: pointer;
   border: 2px solid black;
   padding: 20px;
   width: 100%;
@@ -23,6 +24,7 @@ ul {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   transition: background-color 0.3s ease;
+  user-select: none;
 }
 .box:hover {
   background-color: rgb(70, 69, 69);
@@ -31,26 +33,16 @@ ul {
 .box:hover .button-link {
   background-color: rgb(70, 69, 69);
 }
-
-.button-link:hover {
-  background-color: rgb(43, 42, 42) !important;
+fieldset {
+  width: 95%;            
+  margin: 0 auto;       
+  padding: 10px 15px;    
+  border: 2px solid rgb(0, 0, 0); 
+  border-radius: 6px;
+  box-sizing: border-box;
+  background: rgb(90, 90, 90);
+  color: white;
 }
-
-.user_profile {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: black;
-  color: rgb(90, 90, 90);
-  padding: 10px 20px;
-  border-bottom: 1px solid #333;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-  font-weight: bold;
-  z-index: 1000;
-  text-align: right;
-}
-
 
 .feed {
   color:white;
@@ -118,8 +110,10 @@ body {
   margin: 20px auto;
   box-sizing: border-box;
 }
+.small-button,
 .button-link,
 button {
+  pointer-events: auto;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;

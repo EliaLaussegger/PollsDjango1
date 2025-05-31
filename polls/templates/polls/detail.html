@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'polls/style.css' %}">
   <title>{{ question.question_text }} – Abstimmung</title>
+  <script src="{% static 'polls/script.js' %}"></script>
 </head>
 <body>
 
@@ -15,7 +16,7 @@
 
   <form action="{% url 'polls:vote' question.id %}" method="post">
     {% csrf_token %}
-    <div class="questions-container">
+    <div class="box">
       <fieldset>
 
         <legend><h1>{{ question.question_text }}</h1></legend>
@@ -26,8 +27,8 @@
           <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
         {% endfor %}
       </fieldset>
-      <input type="submit" value="Vote">
-      <a href="{% url 'polls:results' question.id %}">Ergebnis von {{ question.question_text }}</a>
+      <input type="submit" class ="button"value="Vote">
+      <a href="{% url 'polls:results' question.id %}" class="small-button">Ergebnis von {{ question.question_text }}</a>
     </div>
 
   </form>
