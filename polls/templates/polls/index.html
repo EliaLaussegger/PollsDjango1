@@ -15,7 +15,6 @@
     Die Kommentare werden nach Likes sortiert.
     Man kann sich die letzten 5 anzeigen lassen oder alle anschauen.
   </p>
-  <p class = "user_profile">Logged in User {{ user.username }}</p>
   <div class="box">
     <a href="{% url 'polls:latest_feed' %}">Latest Polls</a>
   </div>
@@ -30,6 +29,6 @@
   </div>
   <p><a href="{% url 'polls:logout' %}" class="logout">Logout</a></p>
   <p><a href="{% url 'polls:impressum' %}">Impressum</a></p>
-
+  <span class="topbar-user">👤 {{ user.username }}</span>
 </body>
 </html>

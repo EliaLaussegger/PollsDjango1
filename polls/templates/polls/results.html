@@ -21,6 +21,6 @@
   <p><a href="{% url 'polls:index' %}">Zurück zur Übersicht</a></p>
   <p><a href="{% url 'polls:logout' %}" class="logout">Logout</a></p>
   <p><a href="{% url 'polls:impressum' %}">Impressum</a></p>
-  <p class = "user_profile">Logged in User {{ user.username }}</p>
+  <span class="topbar-user">👤 {{ user.username }}</span></body>
 </body>
 </html>

@@ -45,6 +45,5 @@
     <a href="{% url 'polls:logout' %}" class="logout">Logout</a>
     <p></p>
     <a href="{% url 'polls:impressum' %}">Impressum</a>
-    <p class = "user_profile"> Logged in User {{ user.username }}</p>
-</body>
+    <span class="topbar-user">👤 {{ user.username }}</span></body>
 </html>
