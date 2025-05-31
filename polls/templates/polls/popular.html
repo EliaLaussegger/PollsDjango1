@@ -14,10 +14,10 @@
       {% for question in top_questions %}
         <li>
           <div class="box">
-            <p><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></p>
-            <p id="date">Datum: {{ question.pub_date }}</p>
-            <p id="author">User: {{ question.author }}</p>
-            <form method="post" action="{% url 'polls:like_question' question.id %}">
+            <p class="feed"><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></p>
+            <p class="feed" id="date">Datum: {{ question.pub_date }}</p>
+            <p class="feed" id="author">👤 {{ question.author }}</p>
+            <form method="post" class="feed" action="{% url 'polls:like_question' question.id %}">
               {% csrf_token %}
               <label>{{ question.likes }}</label>
               <button type="submit"class="likeButton">❤️</button>

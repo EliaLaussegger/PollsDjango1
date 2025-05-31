@@ -7,34 +7,50 @@ ul {
     font-size: small;
   }
 .box {
-    border: 2px solid black;
-    padding: 10px;
-    width: 90%;
-    max-width: 600px;
-    box-sizing: border-box;
-    margin: 10px 0;
+  border: 2px solid black;
+  padding: 20px;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;            
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  line-height: .8;
+  background: rgb(68, 68, 68);
 }
+
+
 .user_profile {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background: #f0f0f0;
+  background: black;
+  color: rgb(90, 90, 90);
   padding: 10px 20px;
-  border-bottom: 1px solid #ccc;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-bottom: 1px solid #333;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
   font-weight: bold;
   z-index: 1000;
   text-align: right;
 }
 
 
+.feed {
+  width: 100%;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+}
+
 .topbar-user {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background: #f0f0f0;
+  background: #616161;
   padding: 10px 20px;
   border-bottom: 1px solid #ccc;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -44,6 +60,7 @@ ul {
 }
 body {
   padding-top:  30px;
+  background-color: #1d1d1d;
 
 }
 
