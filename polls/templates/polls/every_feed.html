@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+  <script src="{% static 'polls/script.js' %}"></script>
   <title>Umfragen Übersicht</title>
 </head>
 <body>
@@ -15,7 +16,7 @@
         <li>
           <div class="box">
             <p>
-              <a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
+              <a href="{% url 'polls:detail' question.id %}" class ="button-link">{{ question.question_text }}</a>
             </p>
             <p class="date">Datum: {{ question.pub_date }}</p>
             <p class="author">👤 {{ question.author }}</p>

@@ -16,16 +16,16 @@
     Man kann sich die letzten 5 anzeigen lassen oder alle anschauen.
   </p>
   <div class="box">
-    <a href="{% url 'polls:latest_feed' %}">Latest Polls</a>
+    <a href="{% url 'polls:latest_feed' %}"class ="button-link">Latest Polls</a>
   </div>
   <div class="box">
-    <a href="{% url 'polls:every_feed' %}">All Polls</a>
+    <a href="{% url 'polls:every_feed' %}"class ="button-link">All Polls</a>
   </div>
   <div class="box">
-    <a href="{% url 'polls:popular_feed' %}">Popular Polls</a>
+    <a href="{% url 'polls:popular_feed' %}"class ="button-link">Popular Polls</a>
   </div>
   <div class="box">
-    <a href="{% url 'polls:add_question' %}">Neue Frage hinzufügen</a>
+    <a href="{% url 'polls:add_question' %}"class ="button-link">Neue Frage hinzufügen</a>
   </div>
   <div class="questions-container">
     <p><a href="{% url 'polls:logout' %}" class="logout">Logout</a></p>
