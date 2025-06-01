@@ -6,32 +6,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'polls/style.css' %}">
   <script src="{% static 'polls/script.js' %}"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
   <title>Willkommen bei den Umfragen</title>
 </head>
 <body>
 
-  <p>
-    In dieser Website kann man neue Fragen/Umfragen erstellen und abstimmen.
-    Man kann Kommentare schreiben und liken.
-    Die Kommentare werden nach Likes sortiert.
-    Man kann sich die letzten 5 anzeigen lassen oder alle anschauen.
-  </p>
-  <div class="box">
-    <a href="{% url 'polls:latest_feed' %}"class ="button-link">Latest Polls</a>
-  </div>
-  <div class="box">
-    <a href="{% url 'polls:every_feed' %}"class ="button-link">All Polls</a>
-  </div>
-  <div class="box">
-    <a href="{% url 'polls:popular_feed' %}"class ="button-link">Popular Polls</a>
-  </div>
-  <div class="box">
-    <a href="{% url 'polls:add_question' %}"class ="button-link">Neue Frage hinzufügen</a>
-  </div>
-  <div class="questions-container">
+  <span class="topbar-user">👤 {{ user.username }}</span>
+
+  <div class="content-wrapper">
+
+    <p>
+      In dieser Website kann man neue Fragen/Umfragen erstellen und abstimmen.
+      Man kann Kommentare schreiben und liken.
+      Die Kommentare werden nach Likes sortiert.
+      Man kann sich die letzten 5 anzeigen lassen oder alle anschauen.
+    </p>
+
+    <div class="box">
+      <a href="{% url 'polls:latest_feed' %}" class="button-link">Latest Polls</a>
+    </div>
+    <div class="box">
+      <a href="{% url 'polls:every_feed' %}" class="button-link">All Polls</a>
+    </div>
+    <div class="box">
+      <a href="{% url 'polls:popular_feed' %}" class="button-link">Popular Polls</a>
+    </div>
+    <div class="box">
+      <a href="{% url 'polls:add_question' %}" class="button-link">Neue Frage hinzufügen</a>
+    </div>
     <p><a href="{% url 'polls:logout' %}" class="logout">Logout</a></p>
     <p><a href="{% url 'polls:impressum' %}">Impressum</a></p>
+
+
   </div>
-  <span class="topbar-user">👤 {{ user.username }}</span>
+
 </body>
 </html>

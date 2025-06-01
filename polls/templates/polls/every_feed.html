@@ -6,41 +6,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'polls/style.css' %}">
   <script src="{% static 'polls/script.js' %}"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
   <title>Umfragen Übersicht</title>
 </head>
 <body>
 
-  {% if all_question_list %}
-    <ul>
-      {% for question in all_question_list %}
-        <li>
-          <div class="box">
-            <p>
-              <a href="{% url 'polls:detail' question.id %}" class ="button-link">{{ question.question_text }}</a>
-            </p>
-            <p class="date">Datum: {{ question.pub_date }}</p>
-            <p class="author">👤 {{ question.author }}</p>
-            <form method="post" action="{% url 'polls:like_question' question.id %}">
-              {% csrf_token %}
-              <label>{{ question.likes }}</label>
-              <button type="submit"class="likeButton">❤️</button>
-            </form>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>Noch keine Umfragen verfügbar.</p>
-  {% endif %}
+  <span class="topbar-user">👤 {{ user.username }}</span>
 
-  <form method="post" action="{% url 'polls:add_question' %}">
-    {% csrf_token %}
-    <button type="submit">Neue Frage hinzufügen</button>
-  </form>
+  <div class="content-wrapper">
 
-  <p><a href="{% url 'polls:index' %}">Zurück zur Übersicht</a></p>
-  <p><a href="{% url 'polls:logout' %}" class="logout">Logout</a></p>
-  <p><a href="{% url 'polls:impressum' %}">Impressum</a></p>
-  <span class="topbar-user">👤 {{ user.username }}</span></body>
+    {% if all_question_list %}
+      <ul>
+        {% for question in all_question_list %}
+          <li>
+            <div class="box">
+              <p>
+                <a href="{% url 'polls:detail' question.id %}" class="button-link">{{ question.question_text }}</a>
+              </p>
+              <p class="date">Datum: {{ question.pub_date }}</p>
+              <p class="author">👤 {{ question.author }}</p>
+              <form method="post" action="{% url 'polls:like_question' question.id %}">
+                {% csrf_token %}
+                <label>{{ question.likes }}</label>
+                <button type="submit" class="likeButton">❤️</button>
+              </form>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Noch keine Umfragen verfügbar.</p>
+    {% endif %}
+
+    <form method="post" action="{% url 'polls:add_question' %}">
+      {% csrf_token %}
+      <button type="submit">Neue Frage hinzufügen</button>
+    </form>
+
+    <p><a href="{% url 'polls:index' %}">Zurück zur Übersicht</a></p>
+    <p><a href="{% url 'polls:logout' %}" class="logout">Logout</a></p>
+    <p><a href="{% url 'polls:impressum' %}">Impressum</a></p>
+
+  </div>
+
 </body>
 </html>

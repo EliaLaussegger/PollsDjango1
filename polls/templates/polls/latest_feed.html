@@ -5,12 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
   <script src="{% static 'polls/script.js' %}"></script>
   <title>Neueste Umfragen</title>
 </head>
 <body>
-
-  {% if latest_question_list %}
+  <div class="content-wrapper">
+    {% if latest_question_list %}
     <ul>
       {% for question in latest_question_list %}
         <li>
@@ -27,18 +29,20 @@
         </li>
       {% endfor %}
     </ul>
-  {% else %}
-    <p>Noch keine Umfragen vorhanden.</p>
-  {% endif %}
+    {% else %}
+      <p>Noch keine Umfragen vorhanden.</p>
+    {% endif %}
 
-  <form method="post" action="{% url 'polls:add_question' %}">
-    {% csrf_token %}
-    <button type="submit">Neue Frage hinzufügen</button>
-  </form>
+    <form method="post" action="{% url 'polls:add_question' %}">
+      {% csrf_token %}
+      <button type="submit">Neue Frage hinzufügen</button>
+    </form>
 
-  <p><a href="{% url 'polls:index' %}">Zurück zur Übersicht</a></p>
-  <p><a href="{% url 'polls:logout' %}" class="logout">Logout</a></p>
-  <p><a href="{% url 'polls:impressum' %}">Impressum</a></p>
-  <span class="topbar-user">👤 {{ user.username }}</span></body>
+    <p><a href="{% url 'polls:index' %}">Zurück zur Übersicht</a></p>
+    <p><a href="{% url 'polls:logout' %}" class="logout">Logout</a></p>
+    <p><a href="{% url 'polls:impressum' %}">Impressum</a></p>
+    <span class="topbar-user">👤 {{ user.username }}</span></body>
+  </div>
+
 </body>
 </html>

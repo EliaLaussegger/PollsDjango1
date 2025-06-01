@@ -20,37 +20,35 @@
 <!DOCTYPE html>
 <html lang="de">
 {% load static %}
-<header class="container-fluid border mb-5" style="background-color: rgb(236, 86, 86); padding: 2%;">
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'polls/style.css' %}">
-    <script src="{% static 'polls/script.js' %}"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <title>Frage hinzufügen</title>
-</header>
-<!-- <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
-    <title>Frage hinzufügen</title>
-</head> -->
+</head>
 <body>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+    <div class="content-wrapper">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
 
-        {{ formset.management_form }}
+            {{ formset.management_form }}
 
-        {% for choice_form in formset %}
-            {{ choice_form.as_p }}
-        {% endfor %}
+            {% for choice_form in formset %}
+                {{ choice_form.as_p }}
+            {% endfor %}
 
-        <button type="submit">Frage hinzufügen</button>
-    </form>
+            <button type="submit">Frage hinzufügen</button>
+        </form>
 
-    <a href="{% url 'polls:index' %}">Zurück zur Übersicht</a>
-    <p></p>
-    <a href="{% url 'polls:logout' %}" class="logout">Logout</a>
-    <p></p>
-    <a href="{% url 'polls:impressum' %}">Impressum</a>
-    <span class="topbar-user">👤 {{ user.username }}</span></body>
+        <a href="{% url 'polls:index' %}">Zurück zur Übersicht</a>
+        <p></p>
+        <a href="{% url 'polls:logout' %}" class="logout">Logout</a>
+        <p></p>
+        <a href="{% url 'polls:impressum' %}">Impressum</a>
+        <span class="topbar-user">👤 {{ user.username }}</span></body>
+    </div>
+
 </html>

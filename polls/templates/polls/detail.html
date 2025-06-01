@@ -5,71 +5,74 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'polls/style.css' %}">
-  <title>{{ question.question_text }} – Abstimmung</title>
   <script src="{% static 'polls/script.js' %}"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+  <title>{{ question.question_text }} – Abstimmung</title>
 </head>
 <body>
 
-  {% if error_message %}
-    <p style="color:red;"><strong>{{ error_message }}</strong></p>
-  {% endif %}
+  <span class="topbar-user">👤 {{ user.username }}</span>
 
-  <form action="{% url 'polls:vote' question.id %}" method="post">
-    {% csrf_token %}
-    <div class="box">
-      <fieldset>
+  <div class="content-wrapper">
 
-        <legend><h1>{{ question.question_text }}</h1></legend>
-        <p>Datum: {{ question.pub_date }}</p>
+    {% if error_message %}
+      <p style="color:red;"><strong>{{ error_message }}</strong></p>
+    {% endif %}
 
-        {% for choice in question.choice_set.all %}
-          <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-          <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-        {% endfor %}
-      </fieldset>
-      <input type="submit" class ="button"value="Vote">
-      <a href="{% url 'polls:results' question.id %}" class="small-button">Ergebnis von {{ question.question_text }}</a>
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+      {% csrf_token %}
+      <div class="box2">
+        <fieldset>
+          <legend><h1>{{ question.question_text }}</h1></legend>
+          <p>Datum: {{ question.pub_date }}</p>
+
+          {% for choice in question.choice_set.all %}
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+          {% endfor %}
+        </fieldset>
+
+        <input type="submit" class="button" value="Vote">
+        <a href="{% url 'polls:results' question.id %}" class="small-button">Ergebnis von {{ question.question_text }}</a>
+      </div>
+    </form>
+
+    <h2 class = "h1">Kommentare</h2>
+
+    <ul>
+      {% for comment in comments_sorted %}
+        <li>
+          <div class="box">
+            <p id="comment">{{ comment.comment_text }}</p>
+            <p id="date" class="text">Datum: {{ comment.pub_date }}</p>
+            <p id="author" class="text">User: {{ comment.author }}</p>
+            <form method="post" action="{% url 'polls:like' comment.id %}">
+              {% csrf_token %}
+              <label for="like-{{ comment.id }}">{{ comment.likes }}</label>
+              <button type="submit" id="like-{{ comment.id }}" class="likeButton">❤️</button>
+            </form>
+          </div>
+        </li>
+      {% empty %}
+        <p>Noch keine Kommentare.</p>
+      {% endfor %}
+    </ul>
+
+    <div class="button-container">
+      <form method="post" action="{% url 'polls:add_comment' question.id %}">
+        {% csrf_token %}
+        <label for="id_comment_text" class="h1">Kommentar:</label>
+        <input type="text" name="comment_text" id="id_comment_text" required>
+        <button type="submit">Kommentar hinzufügen</button>
+      </form>
+
+
     </div>
-
-  </form>
-
-  <h2>Kommentare</h2>
-  <ul>
-    {% for comment in comments_sorted %}
-      <li>
-        <div class="box">
-          <p id="comment">{{ comment.comment_text }}</p>
-          <p id="date"class="text">Datum: {{ comment.pub_date }}</p>
-          <p id="author"class="text">User: {{ comment.author }}</p>
-          <form method="post" action="{% url 'polls:like' comment.id %}">
-            {% csrf_token %}
-            <label for="like-{{ comment.id }}">{{ comment.likes }}</label>
-            <button type="submit" id="like-{{ comment.id }}" class="likeButton">❤️</button>
-          </form>
-        </div>
-      </li>
-    {% empty %}
-      <p>Noch keine Kommentare.</p>
-    {% endfor %}
-  </ul>
-
-
-  <div class="button-container">
-  <form method="post" action="{% url 'polls:add_comment' question.id %}">
-    {% csrf_token %}
-    <label for="id_comment_text" class="text">Kommentar:</label>
-    <input type="text" name="comment_text" id="id_comment_text" required>
-    <button type="submit">Kommentar hinzufügen</button>
-  </form>
-    <a href="{% url 'polls:index' %}" class="button-link">Zurück zur Übersicht</a>
-    <p><a href="{% url 'polls:logout' %}" class="text">Logout</a></p>
-    
+    <p><a href="{% url 'polls:index' %}">Zurück zur Übersicht</a></p>
+    <p><a href="{% url 'polls:logout' %}" class="logout">Logout</a></p>
     <p><a href="{% url 'polls:impressum' %}">Impressum</a></p>
-
   </div>
-  
- 
- 
-  <span class="topbar-user">👤 {{ user.username }}</span></body>
-</body> 
+
+</body>
 </html>

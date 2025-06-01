@@ -6,11 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'polls/style.css' %}">
   <script src="{% static 'polls/script.js' %}"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
   <title>Ergebnisse: {{ question.question_text }}</title>
 </head>
 <body>
 
-  <h1>{{ question.question_text }}</h1>
+  <h1 class="h1">{{ question.question_text }}</h1>
 
   <ul>
     {% for choice in question.choice_set.all %}
