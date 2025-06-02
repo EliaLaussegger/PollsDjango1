@@ -16,7 +16,7 @@ from django.views.generic import TemplateView
 from django.contrib import messages
 from profiles.models import Profile
 from functools import wraps
-
+from django.contrib.auth.models import User
 
 class ImpressumView(TemplateView):
     template_name = "polls/impressum.html"
@@ -32,6 +32,8 @@ class PopularView(generic.ListView):
 
 
 
+class UserView(TemplateView):
+    template_name = "polls/user_profile.html"
 class IndexView(TemplateView):
     template_name = "polls/index.html"
 

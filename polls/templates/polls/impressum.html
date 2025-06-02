@@ -11,8 +11,10 @@
     <title>Impressum</title>
 </head>
 <body>
-
-  <h1 class="h1">Impressum</h1>
+    <div class="topbar-user">
+        <a href="{% url 'polls:user' %}">👤 {{ user.username }}</a>
+    </div>
+    <h1 class="h1">Impressum</h1>
 
   <p><strong>Medieninhaber:</strong></p>
   <p>

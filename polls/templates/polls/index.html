@@ -11,9 +11,9 @@
   <title>Willkommen bei den Umfragen</title>
 </head>
 <body>
-
-  <span class="topbar-user">👤 {{ user.username }}</span>
-
+  <div class="topbar-user">
+    <a href="{% url 'polls:user' %}">👤 {{ user.username }}</a>
+  </div>
   <div class="content-wrapper">
 
     <p>

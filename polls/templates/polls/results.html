@@ -24,6 +24,8 @@
   <p><a href="{% url 'polls:index' %}">Zurück zur Übersicht</a></p>
   <p><a href="{% url 'polls:logout' %}" class="logout">Logout</a></p>
   <p><a href="{% url 'polls:impressum' %}">Impressum</a></p>
-  <span class="topbar-user">👤 {{ user.username }}</span></body>
-</body>
+    <div class="topbar-user">
+        <a href="{% url 'polls:user' %}">👤 {{ user.username }}</a>
+    </div>
+  </body>
 </html>

@@ -11,8 +11,11 @@
   <title>Umfragen Übersicht</title>
 </head>
 <body>
+    <div class="topbar-user">
+        <a href="{% url 'polls:user' %}">👤 {{ user.username }}</a>
+    </div>    
 
-  <span class="topbar-user">👤 {{ user.username }}</span>
+
 
   <div class="content-wrapper">
 

@@ -1,0 +1,81 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <title>
+            {% block head_title %}
+            {% endblock head_title %}
+        </title>
+        {% block extra_head %}
+        {% endblock extra_head %}
+    </head>
+    <body>
+        {% block body %}
+            {% if messages %}
+                <div>
+                    <strong>{% trans "Messages:" %}</strong>
+                    <ul>
+                        {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <div class="content-wrapper">
+                <strong class = "h1">{% trans "Menu:" %}</strong>
+                {% if user.is_authenticated %}
+                    {% url 'account_email' as email_url_ %}
+                    {% if email_url_ %}
+                        <p></p>
+                        <a href="{{ email_url_ }}"class="button-link">{% trans "Change Email" %}</a>
+                    {% endif %}
+                    {% url 'account_change_password' as change_password_url_ %}
+                    {% if change_password_url_ %}
+                        <p></p>
+                        <a href="{{ change_password_url_ }}"class="button-link">{% trans "Change Password" %}</a>
+                    {% endif %}
+                    {% url 'socialaccount_connections' as connections_url_ %}
+                    {% if connections_url_ %}
+                        <p></p>
+                        <a href="{{ connections_url_ }}"class="button-link">{% trans "Account Connections" %}</a>
+                    {% endif %}
+                    {% url 'mfa_index' as mfa_url_ %}
+                    {% if mfa_url_ %}
+                        <p></p>
+                        <a href="{{ mfa_url_ }}class="class="button-link">{% trans "Two-Factor Authentication" %}</a>
+                    {% endif %}
+                    {% url 'usersessions_list' as usersessions_list_url_ %}
+                    {% if usersessions_list_url_ %}
+                        <p></p>
+                        <a href="{{ usersessions_list_url_ }}"class="button-link">{% trans "Sessions" %}</a>
+                    {% endif %}
+                    {% url 'account_logout' as logout_url_ %}
+                    {% if logout_url_ %}
+                        <p></p>
+                        <a href="{{ logout_url_ }}class="class="button-link">{% trans "Sign Out" %}</a>
+                    {% endif %}
+                {% else %}
+                    {% url 'account_login' as login_url_ %}
+                    {% if login_url_ %}
+                        <p></p>
+                        <a href="{{ login_url_ }}class="class="button-link">{% trans "Sign In" %}</a>
+                    {% endif %}
+                    {% url 'account_signup' as signup_url_ %}
+                    {% if signup_url_ %}
+                        <p></p>
+                        <a href="{{ signup_url_ }}class="class="button-link">{% trans "Sign Up" %}</a>       
+                    {% endif %}
+                {% endif %}
+                <p><a href="{% url 'polls:index' %}">Zurück zur Übersicht</a></p>
+                <p><a href="{% url 'polls:impressum' %}">Impressum</a></p>
+            </div>
+            {% block content %}
+            {% endblock content %}
+        {% endblock body %}
+        {% block extra_body %}
+        {% endblock extra_body %}
+    </body>
+</html>

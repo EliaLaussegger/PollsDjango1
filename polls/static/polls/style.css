@@ -113,6 +113,9 @@ fieldset {
   font-weight: bold;
   z-index: 1000;
   text-align: right;
+  color: white;              
+  text-decoration: none;     
+  cursor: pointer;            
 }
 body {
   padding-top:  30px;
@@ -187,7 +190,7 @@ button:hover {
 
 }
 a:hover{
-    text-decoration: underline;
+    text-decoration:underline;
 }
 a{
     color:white;

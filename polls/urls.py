@@ -17,5 +17,6 @@ urlpatterns = [
     path('impressum/', views.ImpressumView.as_view(), name='impressum'),
     path("<int:question_id>/like_question/", views.like_question, name="like_question"),
     path("logout/", views.logout_view, name="logout"),
+    path('user/', views.UserView.as_view(), name='user'),
 
 ]

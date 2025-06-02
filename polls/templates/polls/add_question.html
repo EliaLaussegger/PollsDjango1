@@ -29,6 +29,9 @@
     <title>Frage hinzufügen</title>
 </head>
 <body>
+    <div class="topbar-user">
+        <a href="{% url 'polls:user' %}">👤 {{ user.username }}</a>
+    </div>    
     <div class="content-wrapper">
         <form method="post">
             {% csrf_token %}

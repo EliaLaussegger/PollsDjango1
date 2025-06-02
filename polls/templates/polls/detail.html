@@ -12,9 +12,10 @@
 </head>
 <body>
 
-  <span class="topbar-user">👤 {{ user.username }}</span>
-
-  <div class="content-wrapper">
+    <div class="topbar-user">
+        <a href="{% url 'polls:user' %}">👤 {{ user.username }}</a>
+    </div>    
+    <div class="content-wrapper">
 
     {% if error_message %}
       <p style="color:red;"><strong>{{ error_message }}</strong></p>
