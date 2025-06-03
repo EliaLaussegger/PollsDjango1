@@ -213,8 +213,12 @@ p{
 }
 .h1{
   color: rgb(255, 255, 255);
-  font-size:larger;
-} 
+  font-size:x-large;
+}
+.h2{
+  color: rgb(255, 255, 255);
+
+}
 input.button {
   display: block;
   width: 100%;
