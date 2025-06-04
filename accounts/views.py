@@ -15,7 +15,8 @@ from django.utils.crypto import get_random_string
 import uuid
 from django.contrib import messages
 import time
-
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 
 
 
@@ -82,31 +83,35 @@ class VerificationView(TemplateView):
     
         return super().get(request, *args, **kwargs)
     def sendEmail(self, request):
-            user = request.user
-            print("E-Mail wird verschickt an:", user.email)
-            try:
-                profile = user.profile
-                token = uuid.uuid4()
-                profile.login_token = token
-                profile.save()
+        user = request.user
+        try:
+            validate_email(user.email)  
+        except ValidationError:
+            print("Ungültige E-Mail-Adresse:", user.email)
+        return HttpResponse("Ungültige E-Mail-Adresse.")
+        try:
+            profile = user.profile
+            token = uuid.uuid4()
+            profile.login_token = token
+            profile.save()
 
-                link = request.build_absolute_uri(
-                    reverse("accounts:login_with_token", args=[token])
-                )
+            link = request.build_absolute_uri(
+                reverse("accounts:login_with_token", args=[token])
+            )
 
-                if user.is_authenticated:
-                    code = str(random.randint(100000, 999999))
-                    request.session['verification_code'] = code     
-                    email = EmailMessage(
-                        subject='HTML Nachricht',
-                        body=f'<h1>Verifizierung</h1><p>Dein Code lautet: <strong>{code}</strong></p><p>"Klicke hier zum Einloggen: {link}<p>',
-                        from_email='elia.laussegger@gmail.com',
-                        to=[user.email],
-                )
-                email.content_subtype = 'html'
-                email.send()
-            except Profile.DoesNotExist:
-                return HttpResponse("Kein Benutzer mit dieser E-Mail gefunden.")
+            if user.is_authenticated:
+                code = str(random.randint(100000, 999999))
+                request.session['verification_code'] = code     
+                email = EmailMessage(
+                    subject='HTML Nachricht',
+                    body=f'<h1>Verifizierung</h1><p>Dein Code lautet: <strong>{code}</strong></p><p>"Klicke hier zum Einloggen: {link}<p>',
+                    from_email='elia.laussegger@gmail.com',
+                    to=[user.email],
+            )
+            email.content_subtype = 'html'
+            email.send()
+        except Profile.DoesNotExist:
+            return HttpResponse("Kein Benutzer mit dieser E-Mail gefunden.")
     # def sendEmail(self, request):
     #     user = request.user
         
