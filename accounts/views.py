@@ -85,11 +85,7 @@ class VerificationView(TemplateView):
     def sendEmail(self, request):
         user = request.user
         try:
-            validate_email(user.email)  
-        except ValidationError:
-            print("Ungültige E-Mail-Adresse:", user.email)
-        return HttpResponse("Ungültige E-Mail-Adresse.")
-        try:
+            validate_email(user.email)
             profile = user.profile
             token = uuid.uuid4()
             profile.login_token = token
@@ -111,6 +107,8 @@ class VerificationView(TemplateView):
             email.content_subtype = 'html'
             email.send()
         except Profile.DoesNotExist:
+            return HttpResponse("Kein Benutzer mit dieser E-Mail gefunden.")
+        except ValidationError:
             return HttpResponse("Kein Benutzer mit dieser E-Mail gefunden.")
     # def sendEmail(self, request):
     #     user = request.user
