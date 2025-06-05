@@ -19,7 +19,10 @@
           <div class="box">
             <p class="feed"><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></p>
             <p class="feed" id="date">Datum: {{ question.pub_date }}</p>
-            <p class="feed" id="author">👤 {{ question.author }}</p>
+            <p class="feed" id="author">
+               <img src="{{ question.author.profile.profile_image.url }}" class = "profile_images"alt="{{ question.author }}">
+              {{ question.author }}
+            </p>
             <form method="post" class="feed" action="{% url 'polls:like_question' question.id %}">
               {% csrf_token %}
               <label>{{ question.likes }}</label>

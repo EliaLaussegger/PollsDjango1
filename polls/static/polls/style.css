@@ -41,7 +41,13 @@ ul {
   transition: background-color 0.3s ease;
   user-select: none;
 }
-
+.profile_images{
+  width: 40px;         
+  height: 40px; 
+  border-radius: 50%;   
+  object-fit: cover;       
+  border: 2px solid #ccc;  
+}
 .box:hover {
   background-color: rgb(70, 69, 69);
 }
@@ -99,8 +105,15 @@ fieldset {
   font-size: 1rem;
   margin-bottom: 10px;
   word-wrap: break-word;
+  display: flex;
+  align-items: center;
+  gap: 10px; 
 }
-
+.profile{
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+}
 .topbar-user {
   position: fixed;
   top: 0;
