@@ -14,7 +14,14 @@
 <body>
 
     <div class="topbar-user">
-        <a href="{% url 'polls:user' %}">👤 {{ user.username }}</a>
+      <a href="{% url 'polls:user' %}">
+          {% if question.author.profile.profile_image %}
+              <img src="{{ question.author.profile.profile_image.url }}" class="profile_images" alt="{{ question.author }}">
+          {% else %}
+              <img src="{% static 'default_profile.jpg' %}" class="profile_images" alt="Default">
+          {% endif %}
+              {{ user.username }}
+      </a>    
     </div>    
     <div class="content-wrapper">
 
