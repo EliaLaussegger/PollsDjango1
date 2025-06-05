@@ -16,7 +16,7 @@
           {% if request.user.profile.profile_image %}
               <img src="{{ request.user.profile.profile_image.url }}" alt="Profilbild" class="profile_images">
           {% else %}
-              <img src="{% static 'default_profile.jpg' %}" alt="Default Profilbild" class="profile_images">
+              <img src="{% static 'polls/default_profile.png' %}" alt="Profilbild" class="profile_images">
           {% endif %}
               {{ user.username }}
       </a>

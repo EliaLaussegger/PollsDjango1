@@ -38,7 +38,7 @@
               {% if question.author.profile.profile_image %}
                 <img src="{{ question.author.profile.profile_image.url }}" class="profile_images" alt="{{ question.author }}">
               {% else %}
-                <img src="{% static 'default_profile.jpg' %}" class="profile_images" alt="Default">
+                <img src="{% static 'polls/default_profile.png' %}" alt="Profilbild" class="profile_images">
               {% endif %}
                 {{ question.author }}
             </p>
