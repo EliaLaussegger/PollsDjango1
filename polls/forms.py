@@ -18,7 +18,9 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['comment_text']
 
-# class Profile(profiles.models.Model):
-#     class Meta:
-#         model = Profil
-#         fields = ['bild']
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['profile_image']

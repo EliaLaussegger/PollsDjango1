@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="icon" href="{% static 'polls/GonLara.jpg' %}">
+  <script src="{% static 'polls/script.js' %}"></script>
+  <title>Beliebteste Umfragen</title>
+</head>
+<body>
+    <div class="topbar-user">
+      <a href="{% url 'polls:user' %}">
+          {% if request.user.profile.profile_image %}
+              <img src="{{ request.user.profile.profile_image.url }}" alt="Profilbild" class="profile_images">
+          {% else %}
+              <img src="{% static 'polls/default_profile.png' %}" alt="Profilbild" class="profile_images">
+          {% endif %}
+              {{ user.username }}
+      </a>
+    </div>    
+    <div class="content-wrapper">
+
+        <form method="POST" enctype="multipart/form-data" action="{% url 'polls:new_picture' %}">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <input type="file" name="profile_image" id="fileInput" style="display:none;">
+            
+            <button type="button" onclick="document.getElementById('fileInput').click();" class ="pictureButton">Bild auswählen</button>
+            <p></p>
+            <button type="submit">Hochladen</button>
+        </form>
+        <p><a href="{% url 'polls:index' %}">Zurück zur Übersicht</a></p>
+        <p><a href="{% url 'polls:logout' %}" class="logout">Logout</a></p>
+        <p><a href="{% url 'polls:impressum' %}">Impressum</a></p>
+    </div>
+
+</body>

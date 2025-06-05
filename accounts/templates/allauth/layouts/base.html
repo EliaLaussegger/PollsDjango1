@@ -27,6 +27,7 @@
             {% endif %}
             <div class="content-wrapper">
                 <strong class = "h1">{% trans "Menu:" %}</strong>
+                 <a href="{% url 'polls:new_picture_view' %}"class="button-link">Profilbild ändern</a>
                 {% if user.is_authenticated %}
                     {% url 'account_email' as email_url_ %}
                     {% if email_url_ %}

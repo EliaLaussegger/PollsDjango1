@@ -10,7 +10,7 @@ from django.views import generic
 from django.utils import timezone
 from .models import Choice, Question, Comment, Vote, Like
 from django.urls import reverse_lazy
-from .forms import QuestionForm, CommentForm
+from .forms import QuestionForm, CommentForm, ProfileForm
 from django.forms import inlineformset_factory
 from django.views.generic import TemplateView
 from django.contrib import messages
@@ -20,7 +20,8 @@ from django.contrib.auth.models import User
 
 class ImpressumView(TemplateView):
     template_name = "polls/impressum.html"
-
+class ProfilePictureView(TemplateView):
+    template_name = "polls/profile_picture.html"
 
 class PopularView(generic.ListView):
     template_name = "polls/popular.html"
@@ -118,6 +119,19 @@ def vote(request, question_id):
     return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
 ChoiceFormSet = inlineformset_factory(Question, Choice, fields=['choice_text'], extra=3)
 @check_loggedin
+def profile_picture(request):
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('polls:user')
+    else:
+        form = ProfileForm(instance=profile)
+
+    return render(request, 'profiles/profile_picture.html', {'form': form})
+            
+@check_loggedin
 def add_question(request):
     if request.method == 'POST':
         form = QuestionForm(request.POST)
@@ -197,3 +211,5 @@ def logout_view(request):
     logout(request)
     request.session["email_sent"] = False 
     return redirect('accounts:index')
+
+

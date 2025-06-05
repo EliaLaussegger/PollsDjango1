@@ -18,5 +18,7 @@ urlpatterns = [
     path("<int:question_id>/like_question/", views.like_question, name="like_question"),
     path("logout/", views.logout_view, name="logout"),
     path('user/', views.UserView.as_view(), name='user'),
+    path("new_picture/", views.profile_picture, name="new_picture"),
+    path("new_picture_view/", views.ProfilePictureView.as_view(), name="new_picture_view"),
 
 ]
