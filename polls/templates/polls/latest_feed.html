@@ -19,7 +19,13 @@
           <div class="box">
             <p><a href="{% url 'polls:detail' question.id %}"class ="button-link">{{ question.question_text }}</a></p>
             <p id="date">Datum: {{ question.pub_date }}</p>
-            <p id="author">👤 {{ question.author }}</p>
+            <p class="feed" id="author">
+              {% if question.author.profile.profile_image %}
+                <img src="{{ question.author.profile.profile_image.url }}" class="profile_images" alt="{{ question.author }}">
+              {% else %}
+                <img src="{% static 'default_profile.jpg' %}" class="profile_images" alt="Default">
+              {% endif %}
+                {{ question.author }}
             <form method="post" action="{% url 'polls:like_question' question.id %}">
               {% csrf_token %}
               <label>{{ question.likes }}</label>
