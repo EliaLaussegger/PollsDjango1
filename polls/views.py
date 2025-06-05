@@ -125,7 +125,7 @@ def profile_picture(request):
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect('polls:user')
+            return redirect('polls:new_picture_view')
     else:
         form = ProfileForm(instance=profile)
 
