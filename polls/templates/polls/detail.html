@@ -15,13 +15,13 @@
 
     <div class="topbar-user">
       <a href="{% url 'polls:user' %}">
-          {% if question.author.profile.profile_image %}
-              <img src="{{ question.author.profile.profile_image.url }}" class="profile_images" alt="{{ question.author }}">
+          {% if request.user.profile.profile_image %}
+              <img src="{{ request.user.profile.profile_image.url }}" alt="Profilbild" class="profile_images">
           {% else %}
-              <img src="{% static 'default_profile.jpg' %}" class="profile_images" alt="Default">
+              <img src="{% static 'default_profile.jpg' %}" alt="Default Profilbild" class="profile_images">
           {% endif %}
               {{ user.username }}
-      </a>    
+      </a>
     </div>    
     <div class="content-wrapper">
 
@@ -34,8 +34,15 @@
       <div class="box2">
         <fieldset>
           <legend><h1>{{ question.question_text }}</h1></legend>
-          <p>Datum: {{ question.pub_date }}</p>
-
+            <p class="feed" id="author">
+              {% if question.author.profile.profile_image %}
+                <img src="{{ question.author.profile.profile_image.url }}" class="profile_images" alt="{{ question.author }}">
+              {% else %}
+                <img src="{% static 'default_profile.jpg' %}" class="profile_images" alt="Default">
+              {% endif %}
+                {{ question.author }}
+            </p>
+            <p>Datum: {{ question.pub_date }}</p>
           {% for choice in question.choice_set.all %}
             <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
             <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>

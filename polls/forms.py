@@ -1,5 +1,6 @@
 from django import forms
 from .models import Question, Choice, Comment
+from profiles.models import Profile
 
 class QuestionForm(forms.ModelForm):
     class Meta:
@@ -16,3 +17,8 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['comment_text']
+
+# class Profile(profiles.models.Model):
+#     class Meta:
+#         model = Profil
+#         fields = ['bild']
