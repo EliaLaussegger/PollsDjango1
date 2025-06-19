@@ -77,7 +77,7 @@ class VerificationView(TemplateView):
         last_sent = request.session.get("last_email_sent", 0)
         now = time.time()
     
-        if now - last_sent > 60:  # z. B. 60 Sekunden Sperre
+        if now - last_sent > 60:
             self.sendEmail(request)
             request.session["last_email_sent"] = now
     

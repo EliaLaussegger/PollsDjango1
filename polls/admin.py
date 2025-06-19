@@ -12,7 +12,7 @@ class ProfileAdmin(admin.ModelAdmin):
     list_filter = ['is_verified']
     search_fields = ['user__username', 'user__email']
     list_editable = ['is_verified'] 
-class ProfileInline(admin.StackedInline):  # Oder TabularInline
+class ProfileInline(admin.StackedInline):
     model = Profile
     can_delete = False
     verbose_name_plural = 'Profile'
